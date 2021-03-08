@@ -111,7 +111,10 @@ public class FileUtils {
 
         try {
             CommonConfig.getLogger().info("Downloading \"" + urlStr + "\".");
-            BufferedInputStream inputStream = new BufferedInputStream(url.openStream());
+            URLConnection connection = url.openConnection();
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+            connection.connect();
+            BufferedInputStream inputStream = new BufferedInputStream(connection.getInputStream());
             FileOutputStream fileOS = new FileOutputStream(file);
             byte[] data = new byte[1024];
             int byteContent;
