@@ -69,30 +69,7 @@ public class CommonConfig {
     }
 
     @Getter
-    public static Logger logger = makeLogger("GlassCommons", "glass-commons");
-
-    /**
-     * Generates a logger that can be used for logging.
-     */
-    public static Logger makeLogger(String loggerName, String logFolderName) {
-        System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tT] [%3$s] [%4$s] %5$s %n");
-        Logger logger = Logger.getLogger(loggerName);
-        try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
-            LocalDateTime now = LocalDateTime.now();
-            String time = dtf.format(now);
-            File logdir = new File(GLASS_PATH + "/glass-logs/" + logFolderName);
-            logdir.mkdirs();
-            Handler file_handler = new FileHandler(GLASS_PATH + "/glass-logs/" + logFolderName + "/" + time + ".log");
-            logger.addHandler(file_handler);
-            file_handler.setFormatter(new SimpleFormatter());
-            logger.setLevel(Level.ALL);
-            file_handler.setLevel(Level.ALL);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return logger;
-    }
+    public static Logger logger = LoggerFactory.makeLogger("GlassCommons", "glass-commons");
 
     static {
         if (OS.equals("windows")) {
