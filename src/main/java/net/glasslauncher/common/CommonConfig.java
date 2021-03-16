@@ -1,6 +1,7 @@
 package net.glasslauncher.common;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,16 +17,19 @@ import java.util.logging.SimpleFormatter;
 public class CommonConfig {
 
     /**
+     * Overrides the .glass-launcher folder location.
+     * MUST BE ABSOLUTE
+     */
+    @Getter
+    @Setter
+    private static String overridePath = null;
+
+    /**
      * The current OS of the user.
      * @see #getOSString()
      */
     public static final String OS = getOSString();
 
-    /**
-     * The path of the launcher's files.
-     * @see #getDataPath(String)
-     */
-    public static final String GLASS_PATH = getDataPath(".glass-launcher");
 
     /**
      * The path of the Java binary running the launcher.
@@ -68,8 +72,35 @@ public class CommonConfig {
         }
     }
 
-    @Getter
-    public static Logger logger = LoggerFactory.makeLogger("GlassCommons", "glass-commons");
+    /**
+     * The path of the .glass-launcher folder.
+     * Uses overridden path if one is set.
+     * @see #getDataPath(String)
+     */
+    public static String getGlassPath() {
+        return getGlassPath(true);
+    }
+
+    /**
+     * The path of the launcher's files.
+     * @param allowOverride False to ignore overridden.
+     * @see #getDataPath(String)
+     */
+    public static String getGlassPath(boolean allowOverride) {
+        if (allowOverride && overridePath != null) {
+            return overridePath;
+        }
+        return getDataPath(".glass-launcher");
+    }
+
+    private static Logger logger = null;
+
+    public static Logger getLogger() {
+        if (logger == null) {
+            logger = LoggerFactory.makeLogger("GlassCommons", "glass-commons");
+        }
+        return logger;
+    }
 
     static {
         if (OS.equals("windows")) {

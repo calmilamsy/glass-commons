@@ -19,7 +19,7 @@ public class LoggerFactory {
             LocalDateTime now = LocalDateTime.now();
             String time = dtf.format(now);
             (new File(logDir, logFolderName)).mkdirs();
-            Handler file_handler = new FileHandler(new File(logDir, logFolderName + "/" + time + ".log").getAbsolutePath());
+            Handler file_handler = new FileHandler(new File(logDir, time + ".log").getAbsolutePath());
             logger.addHandler(file_handler);
             file_handler.setFormatter(new SimpleFormatter());
             logger.setLevel(Level.ALL);
@@ -34,6 +34,6 @@ public class LoggerFactory {
      * Generates a logger that can be used for logging.
      */
     public static Logger makeLogger(String loggerName, String logFolderName) {
-        return makeLogger(loggerName, logFolderName, new File(CommonConfig.GLASS_PATH + "/glass-logs/" + logFolderName));
+        return makeLogger(loggerName, logFolderName, new File(CommonConfig.getGlassPath() + "/glass-logs/" + logFolderName));
     }
 }
