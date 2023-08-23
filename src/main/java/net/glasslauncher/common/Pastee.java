@@ -45,7 +45,7 @@ public class Pastee {
             Gson gson = new GsonBuilder().create();
             req.setRequestMethod("POST");
             req.setRequestProperty("Content-Type", "application/json");
-            req.setRequestProperty("X-Auth-Token", "ak4XFTvAbNJvaEIoycGzOhCYeLkd7JFpZLVtUgutM");
+            req.setRequestProperty("X-Auth-Token", "uz73giL0DObivicwYhGvJeRQJ7WkOQR8tT8UnTJLx");
             req.setDoOutput(true);
             req.setDoInput(true);
             PasteePost pasteePost = new PasteePost();
