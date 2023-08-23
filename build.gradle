@@ -38,8 +38,7 @@ publishing {
     }
 
     repositories {
-        mavenLocal()
-        if (project.hasProperty("glass_maven_username")) {
+        if (project.hasProperty("glass_maven_url")) {
             maven {
                 url = "${glass_maven_url}"
                 credentials {
